@@ -68,3 +68,28 @@ healthy on loopback port 7520. Gitleaks scanned all five commits across all loca
 branches and reported no leaks. A separate targeted review found no private donor
 paths, hosted ingress names, authentication keys or payment secrets in the release
 files. The Gitea remote is unchanged; nothing has been pushed or published.
+
+## 6. Gallery, reconstruction and settings redesign
+
+Used Anthropic's **frontend-design** plugin from **claude-plugins-official** for
+this version, following its design-plan, review and screenshot-critique workflow.
+See `docs/DESIGN.md` for the design choices and plugin credit.
+
+Replaced the long landing page with three focused screens. The gallery opens
+first; each photo has a large reconstruction/comparison workspace and its own
+history. Settings holds connection checks and test images. Examples live in a
+picker, crop/reference options expand when needed, and instructions/work records
+remain available in detail dialogs. Added reference upload without leaving the
+photo, drag-and-drop upload, exact crop controls and bookmarkable photo addresses.
+The save/check action is combined, and temporary test images stay out of the gallery.
+
+Kept the existing backend, local files and image model behavior. The local-only
+network settings remain in the ignored `.env`; no local hostname is in this change.
+
+Validation: all 14 backend tests passed. The rewritten isolated Chromium suite
+passed navigation, example selection, prompt access, reference upload, exact crop
+controls, connection failure/success, image verification, gallery separation,
+three-version generation, comparisons, downloads, refinements, history selection,
+refresh/bookmark/back navigation, mobile layout and deletion. Reviewed screenshots
+of the gallery, settings and reconstruction screens, including the phone layout.
+Image generation in these checks uses only the test provider, not a real GPU.

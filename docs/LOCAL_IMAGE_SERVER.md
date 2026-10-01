@@ -16,7 +16,7 @@ From the project folder, after the README's setup steps:
 docker compose -f compose.yaml -f compose.gpu.yaml --profile gpu up -d --build --wait --wait-timeout 1800
 ```
 
-Open the app, choose **Image server settings**, and save:
+Open the app, choose **Settings**, and save:
 
 | Setting | Value |
 | --- | --- |
@@ -24,10 +24,10 @@ Open the app, choose **Image server settings**, and save:
 | Model name | `black-forest-labs/FLUX.2-klein-4B` |
 | Access key | Leave empty |
 
-Choose **Check connection**, then **Try a test image**. A successful connection
+Choose **Save & check**, then **Try a test image**. A successful connection
 alone does not prove that the server can edit images. The second check makes a
 real image and checks its format and size; it does not judge likeness or quality.
-The test photo and its work record remain in the library until you delete them.
+The test photo stays in Settings until you remove it; it does not clutter your gallery.
 
 To see startup progress or stop everything, use the same two files:
 

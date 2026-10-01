@@ -49,18 +49,22 @@ different numbers, run `id -u` and `id -g`, then put their outputs in `.env` as
 `LOCAL_UID` and `LOCAL_GID`. The `data` folder must be writable by that user.
 If startup reports a permission error, correct those values and try again.
 
-1. Open **Image server settings**.
-2. Enter the server address and model name. Add an access key only if needed.
-3. Choose **Save settings**, then **Check connection**.
-4. Choose **Try a test image**. This makes a real image from a bundled portrait.
-5. Add your own photo or choose **Try with this photo** under an example.
-6. Optionally select a smaller area and up to three clear reference photos, then
-   choose **Make three versions**.
+1. Open **Settings**, enter your image-server address and model, then choose
+   **Save & check**. Use **Try a test image** to verify image creation.
+2. Open **Gallery** and choose **Add a photo** or **Try an example**.
+3. In **Reconstruction**, choose **Make three versions**. Optional cropping and
+   reference photos are under **Photo options** and **Reference photos**.
+4. Switch between the finished versions, compare with the original and download
+   the one you like. Previous reconstructions stay with that photo.
+
+The app opens straight into your gallery. Each photo has its own reconstruction
+workspace; Settings holds connection checks and test images. You can bookmark a
+photo's address and return to it later.
 
 **Natural** stays conservative. **Balanced** makes another pass over Natural to
 clean up existing lines. **Reimagined** allows more invented detail and may change
 likeness. Each finished version has a comparison slider, PNG download, refinement
-button and expandable instructions/work record. Repeated refinement can change a
+button and a **View details** panel with its instructions and work record. Repeated refinement can change a
 face further; check the original as you go.
 
 ## Where your files go
