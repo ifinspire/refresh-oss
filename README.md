@@ -2,6 +2,10 @@
 
 **Give a blurry portrait a clearer look, on your own setup.**
 
+This is the open-source, self-hosted edition distilled from
+**[refresh.stream](https://refresh.stream)**, our hosted photo reconstruction product.
+It keeps the core photo tools in a simpler workspace you run yourself.
+
 refresh makes three interpretations of a photo: **Natural**, **Balanced** and
 **Reimagined**. Compare them, download the one you like, or make another pass.
 You can add clear photos of the same person to help with likeness. AI can invent
@@ -16,6 +20,24 @@ Thanks to **[Black Forest Labs](https://huggingface.co/black-forest-labs/FLUX.2-
 for making **FLUX.2 [klein] 4B** available under **Apache 2.0**. That release makes
 this project possible. Model weights are downloaded separately; this project is
 not affiliated with or endorsed by Black Forest Labs.
+
+## A look inside
+
+**Gallery** — keep your photos together and choose one to work on.
+
+![Gallery showing the five bundled historical portraits](docs/screenshots/gallery.png)
+
+**Reconstruction** — choose a photo, adjust its framing and make three versions.
+
+![Reconstruction workspace with an original demo portrait and photo tools](docs/screenshots/reconstruction.png)
+
+**Settings** — choose your image server and check that it can make images.
+
+![Settings with the default local image server and connection checks](docs/screenshots/settings.png)
+
+These screenshots use the [credited demo portraits](web/examples/README.md).
+The reconstruction screen shows an original photo before processing; Settings
+shows the defaults before a connection check.
 
 ## What you need
 

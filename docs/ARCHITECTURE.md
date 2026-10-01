@@ -1,5 +1,7 @@
 # Two shapes, for two different needs
 
+This repository is distilled from **[refresh.stream](https://refresh.stream)**,
+our hosted photo reconstruction product.
 The self-hosted edition is a personal workspace. The hosted product has to serve
 many unrelated people over the internet. That requires more boundaries around
 identity, payments, photo access and administration.
