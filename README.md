@@ -71,6 +71,35 @@ different numbers, run `id -u` and `id -g`, then put their outputs in `.env` as
 `LOCAL_UID` and `LOCAL_GID`. The `data` folder must be writable by that user.
 If startup reports a permission error, correct those values and try again.
 
+### Use a ready-made app package
+
+Once a release's Docker package has been published, you can download the app
+instead of building it. In `.env`, add its version, for example:
+
+```dotenv
+REFRESH_VERSION=0.1.0-preview.1
+```
+
+Then start it with:
+
+```sh
+docker compose -f compose.yaml -f compose.package.yaml pull app
+docker compose -f compose.yaml -f compose.package.yaml up -d --no-build --wait app
+```
+
+Use those same two `-f` options when stopping the app or viewing logs. Your `data`
+folder and settings work the same way. The package includes the app and demo
+portraits; you still need an image server to create new results. See the
+[optional GPU setup](docs/LOCAL_IMAGE_SERVER.md#using-the-ready-made-app-package)
+to run the package alongside a local server.
+
+For an update, back up `data`, change `REFRESH_VERSION` to the new published
+version, then repeat the two commands. Check the release notes before updating.
+Source archives from the first preview predate this shortcut; use a current
+checkout of this repository for these instructions.
+
+### Choose a photo
+
 1. Open **Settings**, enter your image-server address and model, then choose
    **Save & check**. Use **Try a test image** to verify image creation.
 2. Open **Gallery** and choose **Add a photo** or **Try an example**.
@@ -163,6 +192,7 @@ These are inherited demonstration assets, not a benchmark of today's prompts.
 - [Optional DGX Spark / GB10 image server](docs/LOCAL_IMAGE_SERVER.md)
 - [Contributing and running browser checks](CONTRIBUTING.md)
 - [Build and verification notes](WORK_LOG.md)
+- [Publishing releases and Docker packages](docs/RELEASING.md)
 
 The software is **[Apache-2.0](LICENSE)**, copyright 2026 **Imagination Frontier,
 LLC**. Outside contributions require the separate [copyright assignment and

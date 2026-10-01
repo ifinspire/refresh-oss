@@ -36,6 +36,19 @@ docker compose -f compose.yaml -f compose.gpu.yaml --profile gpu logs -f omni
 docker compose -f compose.yaml -f compose.gpu.yaml --profile gpu down
 ```
 
+## Using the ready-made app package
+
+Set `REFRESH_VERSION` in `.env` as described in the README, then run:
+
+```sh
+docker compose -f compose.yaml -f compose.package.yaml -f compose.gpu.yaml --profile gpu pull app
+docker compose -f compose.yaml -f compose.package.yaml -f compose.gpu.yaml --profile gpu up -d --build --wait --wait-timeout 1800
+```
+
+This downloads the published app and builds the GPU server separately. Use these
+same three `-f` options and `--profile gpu` for `logs` and `down`. The settings
+and hardware requirements above still apply.
+
 ## If you already have an image server
 
 Use its address and exact served model name in Settings. Include `/v1` in the

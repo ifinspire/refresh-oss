@@ -93,3 +93,25 @@ three-version generation, comparisons, downloads, refinements, history selection
 refresh/bookmark/back navigation, mobile layout and deletion. Reviewed screenshots
 of the gallery, settings and reconstruction screens, including the phone layout.
 Image generation in these checks uses only the test provider, not a real GPU.
+
+## 7. Versioned Docker packages
+
+Added a release-triggered GitHub Packages workflow with a manual option for the
+already-published `v0.1.0-preview.1`. It checks the release's exact commit on native
+AMD64 and ARM64 runners before publishing a two-platform production image, with
+license notices, source labels, provenance and a software inventory. It publishes
+only the chosen version and refuses to replace an existing version. Registry
+access uses GitHub's temporary workflow token with package-write permission only
+in the publishing job.
+
+Added a Compose override for downloading a package, plus plain-language install,
+update and release instructions. The existing local library and network defaults
+are retained. Model weights and the optional GPU server remain separate.
+
+Local validation: actionlint passed; the package and optional GPU Compose files
+validated; all 14 backend tests passed. Built the production package from tracked
+source and passed the complete browser suite against that image in an isolated
+Compose project. Checked that the package carries LICENSE, NOTICE and demo credits,
+without `.env` or Git history. GitHub's native ARM checks and registry publication
+run on GitHub; the first package requires a manual workflow run and a one-time
+Public visibility setting because the release predates this workflow.

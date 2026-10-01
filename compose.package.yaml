@@ -1,0 +1,5 @@
+# Use after compose.yaml to download a published app instead of building it.
+services:
+  app:
+    build: !reset null
+    image: ghcr.io/ifinspire/refresh-oss:${REFRESH_VERSION:?Set REFRESH_VERSION to a published package version}
