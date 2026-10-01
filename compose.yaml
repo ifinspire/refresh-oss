@@ -1,0 +1,35 @@
+name: refresh-oss
+services:
+  app:
+    build: .
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+    init: true
+    restart: unless-stopped
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${PORT:-7510}:8080"
+    environment:
+      DATA_DIR: /data
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:7510,http://127.0.0.1:7510}
+    volumes:
+      - ./data:/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    read_only: true
+    tmpfs:
+      - /tmp:size=256m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8080/health', timeout=3)"]
+      interval: 5s
+      timeout: 4s
+      start_period: 10s
+      retries: 10
+  tests:
+    profiles: [test]
+    build:
+      context: .
+      target: tests
+    network_mode: none
+    read_only: true
+    tmpfs: [/tmp]

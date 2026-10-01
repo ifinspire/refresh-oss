@@ -1,0 +1,9 @@
+refresh — self hosted
+Copyright 2026 Imagination Frontier, LLC
+
+This distribution includes image-processing and prompt code adapted from the
+company's refresh.stream application. It is released here under Apache-2.0.
+
+Thanks to Black Forest Labs for releasing FLUX.2 [klein] 4B under Apache-2.0,
+which makes this self-hosted image-reconstruction project possible. Model
+weights are downloaded separately and retain their own license and notices.
