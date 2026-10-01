@@ -1,0 +1,39 @@
+services:
+  omni:
+    profiles: [gpu]
+    platform: linux/arm64
+    build:
+      context: ./inference
+      args:
+        OMNI_BASE_IMAGE: ${OMNI_BASE_IMAGE:-timothystewart6/vllm-gb10:v0.28.0-gb10.2}
+        VLLM_OMNI_VERSION: ${VLLM_OMNI_VERSION:-0.28.0rc1}
+    command: [/usr/local/bin/start-omni]
+    restart: unless-stopped
+    init: true
+    environment:
+      HF_HOME: /data/hf
+      HF_TOKEN: ${HF_TOKEN:-}
+      OMNI_MODEL: black-forest-labs/FLUX.2-klein-4B
+      OMNI_GPU_MEMORY_UTILIZATION: ${OMNI_GPU_MEMORY_UTILIZATION:-0.22}
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility
+      TORCH_CUDA_ARCH_LIST: 12.1f
+    volumes:
+      - ./data/models:/data/hf
+      - ./data/inference-cache:/root/.cache/vllm
+    shm_size: 16gb
+    mem_limit: ${OMNI_MEM_LIMIT:-48g}
+    # No published image-server port: the app reaches it on the Compose network.
+    healthcheck:
+      test: [CMD-SHELL, "curl -fsS http://localhost:8000/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15m
+      retries: 30
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]

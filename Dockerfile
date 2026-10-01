@@ -9,6 +9,7 @@ EXPOSE 8080
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080", "--no-access-log", "--no-proxy-headers"]
 FROM runtime AS tests
 COPY tests ./tests
+COPY inference ./inference
 ENV DATA_DIR=/tmp/refresh-tests
 CMD ["python", "-m", "unittest", "discover", "-s", "tests", "-v"]
 FROM runtime AS production

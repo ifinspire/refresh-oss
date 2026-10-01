@@ -23,3 +23,15 @@ Host/origin checks reduce unwanted browser requests; they are not user accounts.
 Validation: Compose tests — 11 passed, including the complete processing path
 with a test-only provider, wire format, restart recovery and error redaction.
 No live GPU quality or compatibility claim is made by these tests.
+
+## 3. Optional Spark image server
+
+Packaged a self-contained Compose profile from the donor's GB10 image-server
+recipe. Kept the native Klein pipeline and four-input compatibility patch; removed
+private paths, unrelated service settings, remote-code enablement and published
+GPU ports. Added a plain-language setup guide.
+
+Validation: combined GPU Compose configuration validates. The patch test checks
+repeat application and rejects an unexpected upstream limit. The full CPU suite
+now has 14 passing tests. GB10 image build/start and real GPU generation remain
+unverified on this CPU-only development environment.
