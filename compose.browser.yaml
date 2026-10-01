@@ -2,7 +2,7 @@ services:
   app:
     ports: !reset []
     environment:
-      ALLOWED_ORIGINS: http://app:8080,http://localhost:7510
+      ALLOWED_ORIGINS: http://app:8080,http://localhost:7520
     volumes: !override
       - ./test-results/data:/data
   test-image-server:

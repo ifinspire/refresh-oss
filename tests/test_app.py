@@ -12,13 +12,13 @@ from app import inference
 from app.main import Engine, create_app
 from test_core import picture
 
-HEADERS = {"x-refresh-request": "1", "origin": "http://localhost:7510"}
+HEADERS = {"x-refresh-request": "1", "origin": "http://localhost:7520"}
 
 
 class AppTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
-        self.client = TestClient(create_app(self.temp.name), base_url="http://localhost:7510", headers=HEADERS)
+        self.client = TestClient(create_app(self.temp.name), base_url="http://localhost:7520", headers=HEADERS)
         self.client.__enter__()
 
     def tearDown(self):

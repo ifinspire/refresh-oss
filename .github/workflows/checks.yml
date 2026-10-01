@@ -1,0 +1,31 @@
+name: Checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unit and integration tests
+        run: docker compose --profile test run --build --rm tests
+      - name: Validate optional GPU setup
+        run: docker compose -f compose.yaml -f compose.gpu.yaml --profile gpu config --quiet
+      - name: Browser checks
+        run: |
+          mkdir -p test-results/data
+          echo "LOCAL_UID=$(id -u)" >> .env
+          echo "LOCAL_GID=$(id -g)" >> .env
+          docker compose -p refresh-oss-browser -f compose.yaml -f compose.browser.yaml --profile test up --build -d --wait app
+          docker compose -p refresh-oss-browser -f compose.yaml -f compose.browser.yaml --profile test run --build --rm browser-tests
+      - name: Stop test services
+        if: always()
+        run: docker compose -p refresh-oss-browser -f compose.yaml -f compose.browser.yaml down
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Scan Git history for secrets
+        run: docker compose -f compose.audit.yaml run --rm secret-check

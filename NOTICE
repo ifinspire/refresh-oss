@@ -7,3 +7,12 @@ company's refresh.stream application. It is released here under Apache-2.0.
 Thanks to Black Forest Labs for releasing FLUX.2 [klein] 4B under Apache-2.0,
 which makes this self-hosted image-reconstruction project possible. Model
 weights are downloaded separately and retain their own license and notices.
+
+Bundled historical examples have individual source credits and rights descriptions
+in web/examples/sources.json and web/examples/README.md. They are not customer data.
+
+The optional GPU container builds on vLLM and vLLM-Omni (Apache-2.0), Hugging Face
+Diffusers (Apache-2.0), PyTorch (BSD-style) and their dependencies. Those separately
+downloaded packages retain their own licenses. App runtime dependencies likewise
+retain the licenses distributed in their installed packages. No model weights,
+third-party browser scripts or face-detection model files are bundled in this repo.

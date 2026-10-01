@@ -51,3 +51,20 @@ visible prompts, saved settings, connection failure, image verification, three
 versions, PNG download, mobile layout and deletion. The HTTP image server used by
 browser checks is test-only and is absent from the production image. Inspected
 the desktop screenshot. No customer photos or actual API keys were used.
+
+## 5. Release packaging
+
+Added Apache-2.0 notices, a contributor copyright-assignment agreement template,
+manual signing/review instructions, GitHub checks, a history secret scanner, a
+plain-language README, and high-level hosted/self-hosted architecture diagrams.
+The agreement needs legal review and a private signing process before accepting
+outside contributions. No proprietary account/database implementation was copied.
+
+Selected local port 7520 so the OSS app can run alongside the existing hosted-product
+development stack. The default listener remains limited to this computer.
+
+Release verification: `docker compose up -d --build --wait` completed with the app
+healthy on loopback port 7520. Gitleaks scanned all five commits across all local
+branches and reported no leaks. A separate targeted review found no private donor
+paths, hosted ingress names, authentication keys or payment secrets in the release
+files. The Gitea remote is unchanged; nothing has been pushed or published.

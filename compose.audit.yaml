@@ -1,0 +1,13 @@
+name: refresh-oss-audit
+services:
+  secret-check:
+    image: ghcr.io/gitleaks/gitleaks:v8.24.2
+    network_mode: none
+    read_only: true
+    volumes:
+      - .:/repo:ro
+    environment:
+      GIT_CONFIG_COUNT: '1'
+      GIT_CONFIG_KEY_0: safe.directory
+      GIT_CONFIG_VALUE_0: /repo
+    command: [git, /repo, --redact, --log-opts=--all]

@@ -189,7 +189,7 @@ def create_app(root=None):
         await asyncio.gather(*tasks, return_exceptions=True)
 
     app = FastAPI(title="refresh — self hosted", lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
-    origins = {url.strip().rstrip("/") for url in os.environ.get("ALLOWED_ORIGINS", "http://localhost:7510,http://127.0.0.1:7510").split(",")}
+    origins = {url.strip().rstrip("/") for url in os.environ.get("ALLOWED_ORIGINS", "http://localhost:7520,http://127.0.0.1:7520").split(",")}
     hosts = {urlsplit(url).netloc for url in origins} | {"localhost:8080"}
 
     @app.middleware("http")
