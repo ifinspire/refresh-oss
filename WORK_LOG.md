@@ -35,3 +35,19 @@ Validation: combined GPU Compose configuration validates. The patch test checks
 repeat application and rejects an unexpected upstream limit. The full CPU suite
 now has 14 passing tests. GB10 image build/start and real GPU generation remain
 unverified on this CPU-only development environment.
+
+## 4. Plain-language browser experience and examples
+
+Built a small browser interface with a local photo library, crop selection,
+reference-photo selection, progress, before/after sliders, downloads and refinement.
+Settings use “image server,” “check connection” and “try a test image”; technical
+records and prompts stay available in expandable sections. Included five credited
+historical example sets, preserving the difference between public domain and no
+known copyright restrictions. Did not publish mismatched donor seed/version claims.
+Pinned the app's resolved Python dependencies.
+
+Validation: 14 CPU tests passed. Isolated Chromium checks passed for import,
+visible prompts, saved settings, connection failure, image verification, three
+versions, PNG download, mobile layout and deletion. The HTTP image server used by
+browser checks is test-only and is absent from the production image. Inspected
+the desktop screenshot. No customer photos or actual API keys were used.

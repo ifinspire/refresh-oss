@@ -1,0 +1,32 @@
+[
+  {
+    "name": "man",
+    "page": "https://commons.wikimedia.org/wiki/File:Unidentified_man_photograph_-_DPLA_-_182340c1319b8f8c8f361fc6fbcdc393.jpg",
+    "license": "Public domain",
+    "credit": "Columbus Metropolitan Library; Elliott studio"
+  },
+  {
+    "name": "girl",
+    "page": "https://commons.wikimedia.org/wiki/File:PhC_19_Unidentified_young_girl_(19579896275).jpg",
+    "license": "No known copyright restrictions",
+    "credit": "State Archives of North Carolina"
+  },
+  {
+    "name": "woman",
+    "page": "https://commons.wikimedia.org/wiki/File:Bust_portrait_of_African_American_woman_(5433310329).jpg",
+    "license": "No known copyright restrictions",
+    "credit": "SMU Libraries; Stephenson studio"
+  },
+  {
+    "name": "elder",
+    "page": "https://commons.wikimedia.org/wiki/File:Unidentified_woman_(front_of_undated_cabinet_card)_(54422077792).jpg",
+    "license": "Public domain",
+    "credit": "William Alden; cabinet card, about 1890"
+  },
+  {
+    "name": "youth",
+    "page": "https://commons.wikimedia.org/wiki/File:Photographic_portrait_of_a_man,_taken_in_the_studio_of_J._S._Hulett,_Napanee,_Ontario._The_caption_in_the_album_next_to_this_photograph_reads_%22Irvine_Smith%22._(4662885605).jpg",
+    "license": "No known copyright restrictions",
+    "credit": "Deseronto Archives; J. S. Hulett studio"
+  }
+]

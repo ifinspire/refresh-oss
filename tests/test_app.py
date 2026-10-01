@@ -87,6 +87,40 @@ class AppTests(unittest.TestCase):
         self.assertEqual(self.client.delete(f"/api/photos/{key}").status_code, 409)
         self.assertEqual(self.client.post(f'/api/jobs/{job["id"]}/acknowledge').status_code, 200)
 
+    def test_reference_order_crop_and_partial_results(self):
+        key, reference = self.upload(), self.upload()
+        seen = []
+        async def provider(config, spec, inputs):
+            seen.append(spec["mode"])
+            self.assertEqual(len(inputs), 2)
+            self.assertIn("Image 2", spec["prompt"])
+            if spec["mode"] == "natural":
+                raise inference.InferenceError("Model rejected this image.")
+            return inputs[0]
+        with patch("app.inference.generate", provider):
+            response = self.client.post("/api/jobs", json={"photo_id": key, "references": [reference], "crop": [10, 5, 30, 30]})
+            self.assertEqual(response.status_code, 202)
+            job = self.wait_job()
+        self.assertEqual(job["status"], "partial")
+        self.assertEqual(seen, ["natural", "reimagined"])
+        self.assertEqual(job["steps"][1]["status"], "skipped")
+        self.assertEqual(job["results"]["reimagined"]["transform"]["crop"], [10, 5, 30, 30])
+        anchor = self.client.get(f'/api/jobs/{job["id"]}/anchor.png')
+        self.assertEqual(Image.open(io.BytesIO(anchor.content)).size, (1024, 1024))
+        self.assertEqual(self.client.delete(f"/api/photos/{reference}").status_code, 200)
+        self.assertEqual(self.client.get("/api/jobs").json(), [])
+
+    def test_wrong_size_never_becomes_a_successful_result(self):
+        key = self.upload()
+        async def provider(*args):
+            return picture((10, 10))
+        with patch("app.inference.generate", provider):
+            self.client.post("/api/jobs", json={"photo_id": key})
+            job = self.wait_job()
+        self.assertEqual(job["status"], "failed")
+        self.assertEqual(job["results"], {})
+        self.assertIn("dimensions", job["steps"][0]["error"])
+
     def test_restart_never_retries_gpu_work(self):
         store = self.client.app.state.engine.store
         key = store.create("jobs")

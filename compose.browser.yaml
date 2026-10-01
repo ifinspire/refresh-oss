@@ -1,0 +1,32 @@
+services:
+  app:
+    ports: !reset []
+    environment:
+      ALLOWED_ORIGINS: http://app:8080,http://localhost:7510
+    volumes: !override
+      - ./test-results/data:/data
+  test-image-server:
+    profiles: [test]
+    build:
+      context: .
+      target: tests
+    command: [uvicorn, tests.fake_provider:app, --host, 0.0.0.0, --port, '8000']
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/v1/models', timeout=3)"]
+      interval: 2s
+      timeout: 3s
+      retries: 10
+  browser-tests:
+    profiles: [test]
+    build:
+      context: .
+      dockerfile: tests/Dockerfile.browser
+    environment:
+      APP_URL: http://app:8080
+    depends_on:
+      test-image-server:
+        condition: service_healthy
+      app:
+        condition: service_healthy
+    volumes:
+      - ./test-results:/results

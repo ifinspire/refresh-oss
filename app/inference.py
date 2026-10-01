@@ -22,7 +22,7 @@ async def request(config, method, route, **kwargs):
                 if response.status_code >= 300:
                     # Provider bodies can echo credentials or infrastructure details.
                     raise InferenceError(f"Inference returned HTTP {response.status_code} for {route}.",
-                                         method == "POST" and response.status_code >= 500)
+                                         method == "POST" and (response.status_code >= 500 or response.status_code == 408))
                 body = bytearray()
                 async for chunk in response.aiter_bytes():
                     body.extend(chunk)
@@ -65,5 +65,5 @@ async def generate(config, spec, inputs):
         if not result:
             raise ValueError()
         return result
-    except (KeyError, TypeError, ValueError):
+    except (KeyError, TypeError, ValueError, AttributeError):
         raise InferenceError("Inference returned invalid image data or changed the fixed prompt.") from None
